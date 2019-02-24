@@ -1,0 +1,67 @@
+{
+  "name": "@holamundo.app/vue-router-qs-binder",
+  "version": "0.0.1",
+  "description": "A library that simplifies binding a component's data property with vue-router query strings",
+  "contributors": [
+    "Brad Adams <hi@breadadams.com> (https://breadadams.com)"
+  ],
+  "license": "MIT",
+  "main": "dist/vue-router-qs-binder.common.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/holamundo-app/vue-router-qs-binder.git"
+  },
+  "files": [
+    "dist/*.js"
+  ],
+  "keywords": [
+    "query string",
+    "history",
+    "vue",
+    "router"
+  ],
+  "scripts": {
+    "serve": "vue-cli-service serve ./demo",
+    "build": "vue-cli-service build --target lib --name vue-router-qs-binder --report ./src/index.js",
+    "lint": "vue-cli-service lint",
+    "flow": "./node_modules/.bin/flow",
+    "build:demo": "vue-cli-service build --name vue-router-qs-binder-demo ./demo/index.js",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "peerDependencies": {
+    "vue": ">= 2.6",
+    "vue-router": ">= 3"
+  },
+  "devDependencies": {
+    "@babel/preset-flow": "^7.0.0",
+    "@vue/cli-plugin-babel": "^3.0.3",
+    "@vue/cli-plugin-eslint": "^3.0.3",
+    "@vue/cli-plugin-unit-jest": "^3.0.3",
+    "@vue/cli-service": "^3.0.3",
+    "@vue/eslint-config-prettier": "^4.0.1",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "flow-bin": "^0.93.0",
+    "husky": "^1.3.1",
+    "node-sass": "^4.11.0",
+    "polished": "^3.0.0",
+    "pretty-quick": "^1.10.0",
+    "randomcolor": "^0.5.4",
+    "sass-loader": "^7.1.0",
+    "vue": "^2.6.6",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}
