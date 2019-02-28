@@ -1,6 +1,8 @@
 # vue-router-qs-binder
 
-A library that simplifies binding a component's `data` property with vue-router query strings.
+[![NPM Version](https://img.shields.io/npm/v/@holamundo.app/vue-router-qs-binder.svg?style=flat-square)](https://www.npmjs.com/package/@holamundo.app/vue-router-qs-binder)
+
+> A library that simplifies binding a component's `data` property with vue-router query strings.
 
 ## Installation
 
