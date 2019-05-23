@@ -14,6 +14,8 @@ $ yarn add @holamundo.app/vue-router-qs-binder
 
 ## Usage
 
+Basic usage below, documentation coming soon!
+
 ```js
 // MyComponent.vue
 
@@ -27,7 +29,14 @@ import qsBinder from '@holamundo.app/vue-router-qs-binder'
 export default {
   name: 'MyComponent',
 
-  mixins: [ qsBinder({ name: '' }, 'search') ]
+  mixins: [
+    qsBinder({
+      dataKey: 'search',
+      data: {
+        name: ''
+      },
+    })
+  ]
 }
 </script>
 ```
