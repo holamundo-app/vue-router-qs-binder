@@ -4,17 +4,24 @@ import { debounce, isFunction, isEqual, isEmpty } from '@/utils';
 type QsBinder = ({
   data: Object => Object | Object,
   dataKey: string,
-  debounceLength?: number
+  debounceLength?: number,
+  didUpdate?: Object => void,
+  updateDataMethodName?: string
 }) => Object;
 
-const qsBinder: QsBinder = ({ data, dataKey, debounceLength = 0 }) => {
+const qsBinder: QsBinder = ({
+  data,
+  dataKey,
+  debounceLength = 0,
+  didUpdate,
+  updateDataMethodName = 'updateQsData'
+}) => {
   return {
     data() {
       return {
-        [dataKey]: {
-          ...(!isFunction(data) ? data : data(this.$route))
-        },
-        qsBinderHasMounted: false
+        [dataKey]: !isFunction(data) ? data : data(this.$route),
+        qsBinderHasMounted: false,
+        qsBinderIsSilent: false
       };
     },
 
@@ -22,17 +29,47 @@ const qsBinder: QsBinder = ({ data, dataKey, debounceLength = 0 }) => {
       this.qsBinderHasMounted = true;
     },
 
+    methods: {
+      qsBinderDidUpdate() {
+        if (typeof didUpdate === 'function') {
+          didUpdate(this);
+        }
+      },
+
+      [updateDataMethodName](newData, silent = false) {
+        if (silent) {
+          this.qsBinderIsSilent = true;
+        }
+
+        this[dataKey] = {
+          ...this[dataKey],
+          ...newData
+        };
+      }
+    },
+
     watch: {
       [dataKey]: {
         handler: debounce(function(newValue, prevValue) {
+          if (this.qsBinderIsSilent) {
+            this.qsBinderIsSilent = false;
+            return;
+          }
+
+          const { query, ...$route } = this.$route;
+
           if (this.qsBinderHasMounted && !isEqual(newValue, prevValue)) {
-            this.$router.push({
-              ...this.$route,
-              query: {
-                ...this.$route.query,
-                ...newValue
-              }
-            });
+            if (!isEqual(newValue, query)) {
+              this.$router.push({
+                ...$route,
+                query: {
+                  ...query,
+                  ...newValue
+                }
+              });
+            }
+
+            this.qsBinderDidUpdate();
           }
         }, debounceLength),
         deep: true
@@ -49,10 +86,7 @@ const qsBinder: QsBinder = ({ data, dataKey, debounceLength = 0 }) => {
                 ? newRoute.query
                 : data(newRoute);
 
-              this[dataKey] = {
-                ...this[dataKey],
-                ...newData
-              };
+              this[updateDataMethodName](newData);
             } else {
               this[dataKey] = {};
             }

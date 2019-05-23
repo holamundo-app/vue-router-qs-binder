@@ -41,10 +41,7 @@ export default {
 
   methods: {
     updateActiveColor(newColor) {
-      this.colorsquares = {
-        ...this.colorsquares,
-        activeColor: newColor
-      };
+      this.updateQsData({ activeColor: newColor });
     },
 
     readableTextColor(color) {
