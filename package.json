@@ -1,6 +1,6 @@
 {
   "name": "@holamundo.app/vue-router-qs-binder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A library that simplifies binding a component's data property with vue-router query strings",
   "contributors": [
     "Brad Adams <hi@breadadams.com> (https://breadadams.com)"
