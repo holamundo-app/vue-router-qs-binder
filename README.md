@@ -53,9 +53,6 @@ $ yarn serve
 # Lint & fix files
 $ yarn lint
 
-# Run unit tests
-$ yarn test:unit
-
 # Build for production
 $ yarn build
 ```
